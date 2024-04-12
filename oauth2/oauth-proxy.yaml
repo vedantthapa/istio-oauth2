@@ -30,9 +30,21 @@ spec:
       labels:
         app: oauth-proxy
     spec:
+      securityContext:
+        runAsNonRoot: true
       containers:
+        - name: istio-proxy
+          image: auto
+          resources:
+            requests:
+              cpu: 50m
+              memory: 112Mi
+          securityContext:
+            allowPrivilegeEscalation: false
         - name: oauth-proxy
           image: "quay.io/oauth2-proxy/oauth2-proxy:v7.6.0"
+          securityContext:
+            allowPrivilegeEscalation: false
           ports:
             - containerPort: 4180
           args:
@@ -52,10 +64,7 @@ spec:
             - --reverse-proxy
             - --whitelist-domain=.dev.infra-auth.alpha.phac.gc.ca
             - --cookie-domain=.dev.infra-auth.alpha.phac.gc.ca
-            # - --whitelist-domain=main.infra-auth.alpha.phac.gc.ca
-            # - --cookie-domain=main.infra-auth.alpha.phac.gc.ca
             - --redirect-url=https://oauth.dev.infra-auth.alpha.phac.gc.ca/oauth2/callback
-            # - --custom-sign-in-logo=https://raw.githubusercontent.com/PHACDataHub/ruok-service-autochecker/main/docs/assets/observatory.png
           env:
             - name: OAUTH_CLIENT_ID
               valueFrom:
@@ -74,6 +83,6 @@ spec:
                   key: OAUTH_COOKIE_SECRET
           resources:
             requests:
-              cpu: 250m # + `server` container = 250m
-              memory: 512Mi # + `server` container = 512MiB
+              cpu: 200m
+              memory: 400Mi
 
