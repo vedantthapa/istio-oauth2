@@ -32,12 +32,22 @@ spec:
         version: v1
     spec:
       containers:
-      - name: helloworld
-        image: docker.io/istio/examples-helloworld-v1
+      - name: istio-proxy
+        image: auto
         resources:
           requests:
-            cpu: "100m"
+            cpu: 50m
+            memory: 112Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+      - name: helloworld
+        image: docker.io/istio/examples-helloworld-v1
         imagePullPolicy: IfNotPresent #Always
         ports:
         - containerPort: 5000
----
+        resources:
+          requests:
+            cpu: 200m
+            memory: 400Mi
+        securityContext:
+          allowPrivilegeEscalation: false
