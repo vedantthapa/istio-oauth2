@@ -30,6 +30,7 @@ patches:
           - --cluster-resource-namespace=$(POD_NAMESPACE)
           - --issuer-ambient-credentials=true
           - --leader-election-namespace=cert-manager
+          - --enable-certificate-owner-ref
       - op: add
         path: /spec/template/spec/containers/0/resources
         value:
