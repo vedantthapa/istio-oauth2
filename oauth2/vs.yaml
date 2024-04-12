@@ -1,0 +1,21 @@
+# This ensure the OIDC endpiont has at least some route defined.
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: userauth-oidc
+  namespace: asm-oauth
+spec:
+  gateways:
+  - userauth
+  hosts:
+  - 'oauth.dev.infra-auth.alpha.phac.gc.ca'
+  http:
+  - name: user-auth-route
+    match:
+    - uri:
+        prefix: /oauth2
+    route:
+    - destination:
+        port:
+          number: 4180
+        host: oauth-proxy
