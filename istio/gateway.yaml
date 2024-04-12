@@ -5,7 +5,7 @@ metadata:
 spec:
   dnsNames:
     - "*.dev.infra-auth.alpha.phac.gc.ca"
-    - "main.infra-auth.alpha.phac.gc.ca"
+    - hellov2.infra-auth.alpha.phac.gc.ca
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt
