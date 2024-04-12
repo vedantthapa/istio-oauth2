@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+spec:
+  acme:
+    email: thapavedant@gmail.com
+    solvers:
+    - dns01:
+        cloudDNS:
+          project: phx-01h57q8t23amkhpscfjenrp9y2
+    preferredChain: ""
+    # Letsencrypt Production
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    server: https://acme-v02.api.letsencrypt.org/directory

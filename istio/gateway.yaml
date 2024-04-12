@@ -1,0 +1,35 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gateway-cert
+spec:
+  dnsNames:
+    - "*.dev.infra-auth.alpha.phac.gc.ca"
+    - "main.infra-auth.alpha.phac.gc.ca"
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS8
+    size: 4096
+    rotationPolicy: Always
+  secretName: userauth-tls-cert
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: userauth
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      name: https
+      protocol: HTTPS
+      number: 443
+    hosts:
+    - '*'
+    tls:
+      credentialName: userauth-tls-cert
+      mode: SIMPLE
