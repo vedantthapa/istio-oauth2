@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - ns.yaml
+  - configmap.yaml
   - serviceaccount.yaml
   - role.yaml
   - deployment.yaml
@@ -11,3 +12,14 @@ resources:
   - gateway.yaml
 
 namespace: asm-oauth
+
+# Patch the Istio ingress service so that our IP is used.
+patches:
+- patch: |-
+    - op: add
+      path: /spec/loadBalancerIP
+      value: 34.47.11.52
+  target:
+    kind: Service
+    name: istio-ingressgateway
+    version: v1
