@@ -23,3 +23,16 @@ patches:
     kind: Service
     name: istio-ingressgateway
     version: v1
+
+# patch the overriden namespace value
+# See https://github.com/kubernetes-sigs/kustomize/issues/880#issuecomment-1736323724
+transformers:
+- |-
+  apiVersion: builtin
+  kind: PatchTransformer
+  metadata:
+    name: istio-asm-managed-rapid
+  patch: '[{"op": "replace", "path": "/metadata/namespace", "value": "istio-system"}]'
+  target:
+    group: ""
+    kind: ConfigMap
