@@ -11,6 +11,4 @@ spec:
   provider:
     name: asm-oauth
   rules:
-  - to:
-    - operation:
-        notPaths: ["/ip"]
+    - {}
