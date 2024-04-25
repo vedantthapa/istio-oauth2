@@ -9,7 +9,6 @@ data:
     </head>
     <body>
       <h2>Hello World! This is a prod URL, check out the request headers!</h2>
-      <a href="https://manytools.org/http-html-text/http-request-headers/">HTTP headers - display the full request headers your browser sends</a>
     </body>
     </html>
 kind: ConfigMap
