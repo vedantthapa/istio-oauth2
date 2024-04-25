@@ -62,8 +62,8 @@ spec:
             - --set-authorization-header
             - --skip-provider-button
             - --reverse-proxy
-            - --whitelist-domain=.dev.infra-auth.alpha.phac.gc.ca
-            - --cookie-domain=.dev.infra-auth.alpha.phac.gc.ca
+            - --whitelist-domain=.infra-auth.alpha.phac.gc.ca
+            - --cookie-domain=.infra-auth.alpha.phac.gc.ca
             - --redirect-url=https://oauth.dev.infra-auth.alpha.phac.gc.ca/oauth2/callback
           env:
             - name: OAUTH_CLIENT_ID
