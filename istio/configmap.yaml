@@ -5,7 +5,7 @@ data:
     extensionProviders:
     - name: asm-oauth
       envoyExtAuthzHttp:
-        service: oauth-proxy.default.svc.cluster.local
+        service: oauth-proxy.asm-oauth.svc.cluster.local
         port: 4180
         includeHeadersInCheck: ["authorization", "cookie"]
         headersToUpstreamOnAllow: ["x-forwarded-access-token", "authorization", "path", "x-auth-request-user", "x-auth-request-email", "x-auth-request-access-token"]
