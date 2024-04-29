@@ -10,6 +10,7 @@ resources:
   - service.yaml
   - autoscaling-v2.yaml
   - gateway.yaml
+  - waf.yaml
 
 namespace: asm-oauth
 
