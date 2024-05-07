@@ -1,0 +1,62 @@
+# allow ingress to gateway
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+ name: allow-ingress
+ namespace: asm-oauth
+spec:
+ selector:
+   matchLabels:
+     istio: ingressgateway
+ action: ALLOW
+ rules:
+   - {}
+---
+# allow ingress from gateway to httpbin
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-ingress-to-httpbin
+  namespace: httpbin
+spec:
+  selector:
+    matchLabels:
+      app: httpbin
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        namespaces: ["asm-oauth"]
+---
+# allow ingress from gateway to nginx
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-ingress-to-nginx
+  namespace: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        namespaces: ["asm-oauth"]
+---
+# allow ingress from gateway to oauth svc
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-ingress-to-oauth
+  namespace: asm-oauth
+spec:
+  selector:
+    matchLabels:
+      app: oauth-proxy
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        namespaces: ["asm-oauth"]
+---
